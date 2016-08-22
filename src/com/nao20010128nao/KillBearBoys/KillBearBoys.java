@@ -58,12 +58,13 @@ public class KillBearBoys extends PluginBase implements Listener {
 			Map<String, String> log = new HashMap<>();
 			log.put("name", event.getPlayer().getName());
 			log.put("action", "Break");
-			log.put("time", LocalDateTime.now().format(DateTimeFormatter.ofPattern("Y/m/d-H:i:s")));
+			log.put("time", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
 			log.put("blockname", event.getBlock().getName());
 			log.put("blockId", event.getBlock().getId() + "");
 			log.put("meta", event.getBlock().getDamage() + "");
 			logs.addLog(log);
-		} else if (wands.get(event.getPlayer().getName()) instanceof logs) {
+		} else if (wands.get(event.getPlayer().getName()) != null
+				&& wands.get(event.getPlayer().getName()) instanceof logs) {
 			if (logs.equals(wands.get(event.getPlayer().getName())))
 				event.getPlayer().sendMessage(wands.get(event.getPlayer().getName()).getLog());
 			else {
@@ -89,12 +90,13 @@ public class KillBearBoys extends PluginBase implements Listener {
 			Map<String, String> log = new HashMap<>();
 			log.put("name", event.getPlayer().getName());
 			log.put("action", "Place");
-			log.put("time", LocalDateTime.now().format(DateTimeFormatter.ofPattern("Y/m/d-H:i:s")));
+			log.put("time", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
 			log.put("blockname", event.getBlock().getName());
 			log.put("blockId", event.getBlock().getId() + "");
 			log.put("meta", event.getBlock().getDamage() + "");
 			logs.addLog(log);
-		} else if (wands.get(event.getPlayer().getName()) instanceof logs) {
+		} else if (wands.get(event.getPlayer().getName()) != null
+				&& wands.get(event.getPlayer().getName()) instanceof logs) {
 			if (logs.equals(wands.get(event.getPlayer().getName())))
 				event.getPlayer().sendMessage(wands.get(event.getPlayer().getName()).getLog());
 			else {
@@ -120,12 +122,13 @@ public class KillBearBoys extends PluginBase implements Listener {
 			Map<String, String> log = new HashMap<>();
 			log.put("name", event.getPlayer().getName());
 			log.put("action", "Place");
-			log.put("time", LocalDateTime.now().format(DateTimeFormatter.ofPattern("Y/m/d-H:i:s")));
+			log.put("time", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
 			log.put("blockname", event.getBlock().getName());
 			log.put("blockId", event.getBlock().getId() + "");
 			log.put("meta", event.getBlock().getDamage() + "");
 			logs.addLog(log);
-		} else if (wands.get(event.getPlayer().getName()) instanceof logs) {
+		} else if (wands.get(event.getPlayer().getName()) != null
+				&& wands.get(event.getPlayer().getName()) instanceof logs) {
 			if (logs.equals(wands.get(event.getPlayer().getName())))
 				event.getPlayer().sendMessage(wands.get(event.getPlayer().getName()).getLog());
 			else {
@@ -152,7 +155,7 @@ public class KillBearBoys extends PluginBase implements Listener {
 			}
 		else
 			sender.sendMessage("[KillBearBoys] Please run this command in-game.");
-		return super.onCommand(sender, command, label, args);
+		return true;
 	}
 }
 
@@ -165,6 +168,7 @@ class logs {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this.level = level;
 		File pathFile = new File(path + "/" + level + "/" + x + "/" + y + "/" + z);
 		pathFile.mkdirs();
 		this.path = pathFile.getAbsolutePath();
@@ -216,7 +220,10 @@ class logs {
 		if (!(obj instanceof logs))
 			return false;
 		logs l = (logs) obj;
-		return level.equals(l.level) & x == l.x & y == l.y & z == l.z;
+		return level.equals(l.level) &
+				x == l.x &
+				y == l.y &
+				z == l.z;
 	}
 
 	public void addLog(Map<String, String> log) {
