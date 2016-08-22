@@ -1,0 +1,19 @@
+name: KillBearBoys
+main: KillBearBoys\KillBearBoys
+version: 2.0.4
+api: 1.6.0
+author: Hmy2001
+website: 
+commands:
+ co:
+  description: Enable/Disable
+  usage: "/co"
+  permission: KillBearBoys.command
+permissions:
+ co:
+  default: op
+  description: "All the permissions to use the KillBearBoys"
+  children:
+   KillBearBoys.command:
+    default: op
+    description: "Allow the usage of the KillBearBoys command"
